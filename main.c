@@ -1,19 +1,19 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <dirent.h>
-#include <cstring>
-#include <cstdint>
+#include <string.h>
+#include <stdint.h>
 
 #define FILE_MAX_BRIGHTNESS "/sys/class/backlight/"
 
 
 void usage(char *name){
 	printf(
-		"Usage: Use -s and number between 1 & 100 for brightness"
+		"\nUsage: Use -s and number between 1 & 100 for brightness"
 		"\n"
-		"- read max brightness"
-		"- make brightness specified out of max brightness"
-		"- changes brightness file"
+		"- read max brightness\n"
+		"- make brightness specified out of max brightness\n"
+		"- changes brightness file\n"
 	);
 }
 
