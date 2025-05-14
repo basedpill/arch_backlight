@@ -7,13 +7,12 @@
 #define FILE_MAX_BRIGHTNESS "/sys/class/backlight/"
 
 
-void usage(char *name){
+void usage(){
 	printf(
 		"\nUsage: Use -s and number between 1 & 100 for brightness"
 		"\n"
 		"- read max brightness\n"
-		"- make brightness specified out of max brightness\n"
-		"- changes brightness file\n"
+		"- changes brightness file\n\n"
 	);
 }
 
@@ -53,8 +52,8 @@ int set_brightness(char *PATH, int number){
 
 
 int main(int argc, char **argv){
-	if(argc <= 1){
-		usage(argv[0]);
+	if(strcmp(argv[1],"-h") == 0){
+		usage();
 		exit ( EXIT_FAILURE );
 	}
 
@@ -95,11 +94,8 @@ int main(int argc, char **argv){
 	if (strcmp(argv[1],"-s")== 0){
 		int number = atoi(argv[2]);
 		printf("\nBrightness set to: %d\n", number);
-		int fin1 = atoi(mb);
-                int fin2 = number*fin1;
-		int fin3 = fin2/100;
-		printf("Max brightness reads: %d\n", fin1);
-		set_brightness(brightness_path,fin3);
+                int scale = (number*(atoi(mb))/100);
+		set_brightness(brightness_path,scale);
 		free(mb);
 		return EXIT_SUCCESS;
 	}
