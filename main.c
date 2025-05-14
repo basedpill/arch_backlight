@@ -4,17 +4,16 @@
 #include <cstring>
 #include <cstdint>
 
-#define FILE_BRIGHTNESS "/sys/backlight/*/brightness"
 #define FILE_MAX_BRIGHTNESS "/sys/class/backlight/"
 
 
 void usage(char *name){
 	printf(
-		"Usage: hopefully gui implementation"
+		"Usage: Use -s and number between 1 & 100 for brightness"
 		"\n"
 		"- read max brightness"
 		"- make brightness specified out of max brightness"
-		"- if max is 15 do: input/100*15"
+		"- changes brightness file"
 	);
 }
 
