@@ -4,7 +4,7 @@
 #include <string.h>
 #include <stdint.h>
 
-#define FILE_MAX_BRIGHTNESS "/sys/class/backlight/"
+#define BACKLIGHT_PATH "/sys/class/backlight/"
 
 
 void usage(){
@@ -30,7 +30,7 @@ char* max_brightness(char *PATH){
 		}
 		fclose(fp);
 	} else{
-		printf("%s NOT FOUND!", FILE_MAX_BRIGHTNESS);
+		printf("%s NOT FOUND!", BACKLIGHT_PATH);
 	}	
 	return max_b;
 }
@@ -58,14 +58,14 @@ int main(int argc, char **argv){
 	}
 
 	struct dirent *entry;
-	DIR *dir = opendir(FILE_MAX_BRIGHTNESS);
+	DIR *dir = opendir(BACKLIGHT_PATH);
 	if (dir == NULL) {
-        	printf("Error: Could not open directory %s\n", FILE_MAX_BRIGHTNESS);
+        	printf("Error: Could not open directory %s\n", BACKLIGHT_PATH);
         	return 1;
 	}
 	entry = readdir(dir);
 	if (entry == NULL) {
-        	printf("Error: No entries in directory %s\n", FILE_MAX_BRIGHTNESS);
+        	printf("Error: No entries in directory %s\n", BACKLIGHT_PATH);
         	closedir(dir);
         	return 1;
 	}
@@ -76,14 +76,14 @@ int main(int argc, char **argv){
  		entry = readdir(dir);
 	}
 	if (entry == NULL) {
-    		fprintf(stderr, "Error: No valid backlight device found in %s\n", FILE_MAX_BRIGHTNESS);
+    		fprintf(stderr, "Error: No valid backlight device found in %s\n", BACKLIGHT_PATH);
     		closedir(dir);
     		return 1;
 	}
 	char backlight_device[1024];
 	char brightness_path[1024];
-	snprintf(brightness_path, sizeof(brightness_path), "%s%s/brightness", FILE_MAX_BRIGHTNESS, entry->d_name);
-	snprintf(backlight_device, sizeof(backlight_device), "%s%s/max_brightness", FILE_MAX_BRIGHTNESS, entry->d_name);
+	snprintf(brightness_path, sizeof(brightness_path), "%s%s/brightness", BACKLIGHT_PATH, entry->d_name);
+	snprintf(backlight_device, sizeof(backlight_device), "%s%s/max_brightness", BACKLIGHT_PATH, entry->d_name);
     	closedir(dir);	
 
 	char *mb = max_brightness(backlight_device);
